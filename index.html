@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="int">0</div>
+    <div></div>
+    <div id="clock"></div>
+    <div class="counter"></div>
+    <div id="timer"></div>
+
+    <style>
+        @property --num {
+        syntax: "<integer>";
+        initial-value: 0;
+        inherits: false;
+    }
+
+.counter {
+  animation: counter 5s infinite alternate ease-in-out;
+  counter-reset: num var(--num);
+  font: 800 40px system-ui;
+  padding: 2rem;
+}
+.counter::after {
+  content: counter(num);
+}
+
+@keyframes counter {
+  from {
+    --num: 0;
+  }
+  to {
+    --num: 100;
+  }
+}
+    </style>
+    <script>
+       const time = 10000
+       const step = 100
+        function changeNum(num, elem){
+            let takeElament = document.querySelector("#" + elem)
+            let i = 0
+            let remainder = Math.round(time/(num/step))
+            
+            let interval = setInterval(()=> {
+                i = i + step
+                if (i == step){
+                    clearInterval(interval)
+               
+            }
+            takeElament.innerHTML = i 
+            }, 
+            remainder)
+        }
+        changeNum(1000 , 'int')
+
+    </script>
+    
+  <script>
+      
+  </script>
+
+<script>
+    let clock = () => {
+  let time = new Date();
+  let hrs = time.getHours();
+  let mins = time.getMinutes();
+  
+  if (hrs == 0) {
+    hrs = 24;
+  } 
+
+  let timeNow = `${hrs}:${mins}`;
+  document.getElementById("clock").innerText = timeNow;
+  setTimeout(clock, 1000);
+};
+
+clock();
+</script>
+
+
+</body>
+</html>
